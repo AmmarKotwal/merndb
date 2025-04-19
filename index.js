@@ -5,7 +5,7 @@ let db = require("./Db")
 let collection = require("./Collections/user")
 let myapp = exp();
 let port = process.env.PORT || 7062;
-
+myapp.use(exp.json())
 myapp.use("/ammar",r);
 
 let sending_data = async function () {
@@ -23,7 +23,7 @@ let sending_data = async function () {
 }
 
 db().then(()=>{
-    sending_data();
+    // sending_data();
     myapp.listen(port,()=>{
         console.log(`Server Is Running On http://localhost:${port}/ammar`)
     })
