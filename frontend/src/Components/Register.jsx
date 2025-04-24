@@ -30,7 +30,8 @@ export default function Register() {
       email: email,
       password: pass,
       age: age
-    }) 
+    })
+    console.log("Data Saved Successfully");
     toast.success("Data Saved Successfully");
     clear();
       }} catch (error) {
