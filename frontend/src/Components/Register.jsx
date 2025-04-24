@@ -16,22 +16,41 @@ export default function Register() {
     setAge(0);
   }
 
-  function save_data() {
+ async function save_data() {
     try {
-      axios.post("http://localhost:7062/ammar/reg", {
+      let pass_RE = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}/<>]{8,}$)/
+      let username_RE = /^[A-Za-z_-]{3,20}$/
+      if (!name || !email || !pass || age === 0) {
+        toast.error("All Fields Are Empty Please Fill All Required Fields")
+      } else if(!pass_RE.test(pass)) {
+        toast.error("Password Invalid")
+      } else if(!username_RE.test(name)) {
+        toast.error("Username Invalid")
+      } else if(age < 18) {
+        toast.error("Age Must Be Greater Than 18")
+      } else {
+        await axios.post("http://localhost:7062/ammar/reg", {
       name: name,
       email: email,
       password: pass,
       age: age
     })
+
     toast.success("Data Saved Successfully");
     clear();
 
-    } catch (error) {
-      toast.error(error)
-      console.log(error)
-    }
+      }
     
+    } 
+     catch (error) {
+      if (error.status === 409) {
+        toast.error("Email Has Already Exist")
+      } else {
+        toast.error(error)
+      console.log(error)
+      }
+      
+    }   
   }
 
   return (

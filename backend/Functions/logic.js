@@ -1,4 +1,5 @@
 let user = require("../Collections/user")
+let bcrypt = require("bcrypt")
 
 let all_func = {
 
@@ -8,9 +9,16 @@ let all_func = {
    },
    register_user : async function (req,res) {
     try {
-        let user_data = new user(req.body);
-        let create_user = await user_data.save();
-        res.status(200).json({msg: "User Created Successfully", data: create_user});
+        let {name,email,password,age} = reg.body;
+        let checkEmail = await user.findOne({email: email})
+        if (checkEmail) {
+            return res.status(409).json({msg: "User Created Successfully"});
+        } else {
+            let encrypt_pass = bcrypt.hashSync(password, 16);
+            let user_data = new user ({name,email,password : encrypt_pass, age});
+            let create_user = await user_data.save();
+            res.status(200).json({msg: "User Created Successfully", data: create_user});
+        }        
     } catch (error) {
         res.status(501).json({msg: error.message});
     }
