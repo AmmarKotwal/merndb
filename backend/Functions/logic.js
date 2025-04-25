@@ -9,7 +9,7 @@ let all_func = {
    },
    register_user : async function (req,res) {
     try {
-        let {name,email,password,age} = reg.body;
+        let {name,email,password,age} = req.body;
         let checkEmail = await user.findOne({email: email})
         if (checkEmail) {
             return res.status(409).json({msg: "User Created Successfully"});
