@@ -12,7 +12,7 @@ let all_func = {
         let {name,email,password,age} = req.body;
         let checkEmail = await user.findOne({email: email})
         if (checkEmail) {
-            return res.status(409).json({msg: "User Created Successfully"});
+            return res.status(409).json({msg: "Email Already Exist"});
         } else {
             let encrypt_pass = bcrypt.hashSync(password, 16);
             let user_data = new user ({name,email,password : encrypt_pass, age});
