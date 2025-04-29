@@ -4,6 +4,7 @@ import Register from './Components/Register';
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ShowData from './Components/ShowData';
 
 
 
@@ -13,6 +14,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element= {<Register />} />
+        <Route path="/show" element= {<ShowData />} />
       </Routes>
     </div>
     </BrowserRouter>

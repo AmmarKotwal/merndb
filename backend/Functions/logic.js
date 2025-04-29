@@ -22,6 +22,14 @@ let all_func = {
     } catch (error) {
         res.status(501).json({msg: error.message});
     }
+   },
+   show_data : async function (req, res) {
+        try {
+            let getUser_data = await user.find().select("-password").sort({"created_at":-1})
+            res.status(201).json(getUser_data);
+        } catch (error) {
+            res.status(501).json({msg: error.message})
+        }
    }
 }
  
