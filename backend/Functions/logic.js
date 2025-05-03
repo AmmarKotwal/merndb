@@ -30,6 +30,20 @@ let all_func = {
         } catch (error) {
             res.status(501).json({msg: error.message})
         }
+   },
+
+   delete_data : async function (req,res) {
+        try {
+            let {id} = req.params;
+            let find_id = await user.findById(id);
+            if (find_id) {
+                    await user.findByIdAndDelete(find_id);
+                    return res.status(200).json({msg: "User Data Has Been Deleted Successfully"})
+
+            }
+        } catch (error) {
+            res.status(501).json({msg:error.message})
+        }
    }
 }
  
