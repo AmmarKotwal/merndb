@@ -44,6 +44,21 @@ let all_func = {
         } catch (error) {
             res.status(501).json({msg:error.message})
         }
+   },
+
+   update_data : async function (req,res) {
+    try {
+        let {id} = req.params;
+        let {name,email,age} = req.body;
+
+        let find_id = await user.findById(id);
+        if (find_id) {
+            await user.findByIdAndUpdate(id,{name: name,email: email,age: age});
+            res.status(200).json({msg: "User Data Has Been Updated Successfully"})
+        }
+    } catch (error) {
+        res.status(501).json({msg:error.message})
+    }
    }
 }
  
